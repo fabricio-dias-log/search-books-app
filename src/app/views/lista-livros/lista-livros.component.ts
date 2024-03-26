@@ -14,11 +14,17 @@ export class ListaLivrosComponent {
   constructor(private livroService: LivroService) { }
 
   buscarLivros() {
-    this.livroService.buscarLivros(this.campoBusca).subscribe(
-      (data: any) => {
-        this.listaLivros = data.items;
+    this.livroService.buscarLivros(this.campoBusca).subscribe({
+      next: (response) => {
+        this.listaLivros = response.items;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {
+        console.log('Requisição completa');
       }
-    );
+    });
   }
 
 }
