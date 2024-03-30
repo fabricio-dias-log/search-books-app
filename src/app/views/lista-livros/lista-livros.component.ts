@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Item } from 'src/app/models/item.interface';
 import { LivroService } from 'src/app/services/livro.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { LivroService } from 'src/app/services/livro.service';
 })
 export class ListaLivrosComponent implements OnDestroy {
 
-  listaLivros: [];
+  listaLivros: Item[] = [];
   campoBusca: string = '';
   subscription: Subscription;
 
@@ -19,6 +20,7 @@ export class ListaLivrosComponent implements OnDestroy {
     this.subscription = this.livroService.buscarLivros(this.campoBusca).subscribe({
       next: (response) => {
         this.listaLivros = response.items;
+        console.log(this.listaLivros);
       },
       error: (error) => {
         console.error(error);

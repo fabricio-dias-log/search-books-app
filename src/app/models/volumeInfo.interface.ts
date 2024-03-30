@@ -6,7 +6,7 @@ import { ReadingModes } from "./readingModes.interface";
 export interface VolumeInfo {
   title: string;
   authors: string[];
-  publishedDate: Date;
+  publishedDate: string;
   description: string;
   industryIdentifiers: IndustryIdentifier[];
   readingModes: ReadingModes;

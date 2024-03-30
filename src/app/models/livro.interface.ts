@@ -1,4 +1,5 @@
 import { AccessInfo } from "./accessInfo.interface";
+import { ImageLinks } from "./imageLinks.interface";
 import { SaleInfo } from "./saleInfo.interface";
 import { SearchInfo } from "./searchInfo.interface";
 import { VolumeInfo } from "./volumeInfo.interface";
@@ -7,10 +8,10 @@ export interface Livro {
   title?: string;
   authors?: string[];
   publisher?: string;
-  publishedDate?: Date;
+  publishedDate?: string;
   description?: string;
   previewLink?: string;
-  thumbnail?: string;
+  thumbnail?: ImageLinks;
 }
 export interface Livros {
   kind: string;
