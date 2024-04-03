@@ -19,7 +19,7 @@ export class ListaLivrosComponent implements OnDestroy {
   buscarLivros() {
     this.subscription = this.livroService.buscarLivros(this.campoBusca).subscribe({
       next: (response) => {
-        this.listaLivros = response.items;
+        this.listaLivros = response;
         console.log(this.listaLivros);
       },
       error: (error) => {
