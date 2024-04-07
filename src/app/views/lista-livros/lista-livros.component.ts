@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter, map, switchMap, tap } from 'rxjs';
+import { catchError, debounceTime, EMPTY, filter, map, switchMap, tap, throwError } from 'rxjs';
 import { Item } from 'src/app/models/item.interface';
 import { LivroVolumeInfo } from 'src/app/models/livro-volume-info';
 import { Livro } from 'src/app/models/livro.interface';
@@ -15,6 +15,7 @@ const PAUSA = 300;
 export class ListaLivrosComponent {
 
   campoBusca = new FormControl();
+  mensagemErro = '';
 
   constructor(private livroService: LivroService) { }
 
@@ -22,7 +23,13 @@ export class ListaLivrosComponent {
     debounceTime(PAUSA),
     filter(valorDigitado => valorDigitado.length > 3),
     switchMap((valorDigitado)=> this.livroService.buscarLivros(valorDigitado)),
-    map((items: Item[]) => this.livrosResultadoParaLivros(items))
+    map((items: Item[]) => this.livrosResultadoParaLivros(items)),
+    catchError(() => {
+      this.mensagemErro = 'Erro ao buscar livros, recarregue a aplicação e tente novamente.';
+      return EMPTY;
+      // console.error(error);
+      // return throwError(error => new Error(this.mensagemErro = 'Erro ao buscar livros'));
+    })
   );
 
   livrosResultadoParaLivros(items: Item[]): LivroVolumeInfo[] {
